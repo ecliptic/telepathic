@@ -1,0 +1,12 @@
+{
+  "extends": ["standard-react", "standard"],
+  "parser": "babel-eslint",
+  "rules": {
+    "jsx-quotes": ["error", "prefer-double"],
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "never"]
+  },
+  "env": {
+    "jest": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@ecliptic/telepathic",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "bs-dependencies": ["bs-chalk", "bs-jest", "bs-json", "bs-websockets"],
+  "reason": {
+    "react-jsx": 2
+  },
+  "bsc-flags": ["-bs-super-errors"],
+  "refmt": 3
+}
