@@ -17,6 +17,27 @@ let key = (action: t) =>
   | ClientRegister(_linkId) => "CLIENT_REGISTER"
   };
 
+let encode = (action: t) : Js.Json.t =>
+  Json.Encode.(
+    object_([
+      ("key", action |> key |> string),
+      (
+        "payload",
+        switch action {
+        | MessageSend(linkId, userName, text) =>
+          object_([
+            ("linkId", string(linkId)),
+            ("userName", string(userName)),
+            ("text", string(text))
+          ])
+        | MessageReceive(userName, text) =>
+          object_([("userName", string(userName)), ("text", string(text))])
+        | ClientRegister(linkId) => object_([("linkId", string(linkId))])
+        }
+      )
+    ])
+  );
+
 /**
    * Transform a js action to an Action type
    */
@@ -104,24 +125,3 @@ let decode = (json: Js.Json.t) : option(t) => {
   | None => Js.Exn.raiseError("Unable to parse action")
   }
 };
-
-let encode = (action: t) : Js.Json.t =>
-  Json.Encode.(
-    object_([
-      ("key", action |> key |> string),
-      (
-        "payload",
-        switch action {
-        | MessageSend(linkId, userName, text) =>
-          object_([
-            ("linkId", string(linkId)),
-            ("userName", string(userName)),
-            ("text", string(text))
-          ])
-        | MessageReceive(userName, text) =>
-          object_([("userName", string(userName)), ("text", string(text))])
-        | ClientRegister(linkId) => object_([("linkId", string(linkId))])
-        }
-      )
-    ])
-  );

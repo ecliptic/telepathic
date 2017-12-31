@@ -1,7 +1,12 @@
-open WebSockets;
+module Ws = {
+  type t;
+  [@bs.new] [@bs.module] external make : string => t = "ws";
+  [@bs.send.pipe : t] external on : (string, 'a => unit) => unit = "";
+  [@bs.send.pipe : t] external send : string => unit = "";
+};
 
 type t = {
-  ws: WebSocket.t,
+  ws: Ws.t,
   linkId: string
 };
 
@@ -60,7 +65,7 @@ let sendMessage = (~linkId: string, ~text: string, client: t) => {
   open Js.Json;
   let userName = getOrCreateUserName();
   let message = MessageSend(linkId, userName, text);
-  client.ws |> WebSocket.sendString(message |> encode |> stringify)
+  client.ws |> Ws.send(message |> encode |> stringify)
 };
 
 /**
@@ -70,17 +75,21 @@ let register = (client: t) => {
   open TelepathicActions;
   open Js.Json;
   let message = ClientRegister(client.linkId);
-  client.ws |> WebSocket.sendString(message |> encode |> stringify)
+  client.ws |> Ws.send(message |> encode |> stringify)
 };
 
 /**
  * Initialize a new Client, optionally accepting an alternate socket client for testing
  * */
 let make = (~socket=None, ~linkId: string, url: string) : t => {
-  ws:
+  let ws =
     switch socket {
     | Some(socket) => socket
-    | None => WebSocket.make(url)
-    },
-  linkId
+    | None => Ws.make(url)
+    };
+  let client = {ws, linkId};
+  /* When connected, register the linkId with the server */
+  ws |> Ws.on("open", () => register(client));
+  /* Return the client */
+  client
 };

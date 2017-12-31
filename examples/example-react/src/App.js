@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 import logo from './logo.svg'
 import './App.css'
-import {Client} from 'bs-telepathic-client'
-
-console.log(Client)
+import Client from 'bs-telepathic-client'
 
 const CHAT_URL = 'ws://localhost:4000/chat'
-const LINK_ID = '6b6188b4-c124-473e-b430-ae0a20c36c8b'
+const LINK_ID = '4df364ed-4a1f-43c0-962c-81be86a43788'
 
 class App extends Component {
   constructor (...args) {
