@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import logo from './logo.svg'
 import './App.css'
-import * as Client from 'telepathic/src/client/Client'
+import {Client} from 'bs-telepathic-client'
+
+console.log(Client)
 
 const CHAT_URL = 'ws://localhost:4000/chat'
 const LINK_ID = '6b6188b4-c124-473e-b430-ae0a20c36c8b'
