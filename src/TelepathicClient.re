@@ -11,6 +11,12 @@ external generate : Js.t('a) => {. "spaced": string, "dashed": string, "raw": ar
 
 [@bs.module] external titleCase : string => string = "title-case";
 
+module Config = {
+  type clientKeys = {userName: string};
+  type keys = {client: clientKeys};
+  let keys: keys = {client: {userName: "telepathic:userName"}};
+};
+
 /**
  * Choose a random name for a guest user
  */
@@ -19,13 +25,13 @@ let chooseName = () => titleCase(generate({"alliterative": true})##spaced);
 /**
  * Get the current userName from localStorage
  */
-let getName = () => Dom.Storage.(localStorage |> getItem(Config.Data.keys.client.userName));
+let getName = () => Dom.Storage.(localStorage |> getItem(Config.keys.client.userName));
 
 /**
  * Change the current userName in localStorage
  */
 let updateName = (~name: string) =>
-  Dom.Storage.(localStorage |> setItem(Config.Data.keys.client.userName, name));
+  Dom.Storage.(localStorage |> setItem(Config.keys.client.userName, name));
 
 /**
  * A convenience wrapper around `chooseName` that updates the userName in localStorage
