@@ -1,16 +1,16 @@
 {
-  "name": "telepathic-client",
-  "version": "0.1.3",
+  "name": "bs-telepathic-client",
+  "version": "0.1.0",
   "description":
     "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
   "main": "./lib/js/src/Client.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ecliptic/telepathic-client.git"
+    "url": "git@github.com:ecliptic/bs-telepathic-client.git"
   },
   "author": "Brandon Konkle <brandon@ecliptic.io> (http://ecliptic.io)",
   "license": "Apache-2.0",
-  "keywords": ["slack"],
+  "keywords": ["bucklescript", "reasonml", "slack"],
   "scripts": {
     "build": "bsb -make-world",
     "build.clean": "bsb -clean-world",

@@ -1,5 +1,5 @@
 {
-  "name": "@ecliptic/telepathic",
+  "name": "bs-telepathic-client",
   "sources": [
     {
       "dir": "src",

@@ -1,4 +1,4 @@
-# telepathic
+# bs-telepathic-client
 
 A telepathic connection to your users
 
@@ -12,10 +12,6 @@ Use [Yarn](https://yarnpkg.com/en/) to install dependencies:
 $ yarn
 ```
 
-## TODO
-
-* [ ] User names are currently assumed to be unique, with no protection
-
 ## Copyright
 
-Copyright 2017 Ecliptic, LLC.
+Copyright 2018 Ecliptic, LLC.
