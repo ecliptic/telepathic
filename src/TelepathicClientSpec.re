@@ -6,11 +6,12 @@ open Js.Option;
 
 open TelepathicUtils;
 
-external asSocket : Js.t('a) => TelepathicClient.Ws.t = "%identity";
+external asSocket : Js.t('a) => WebSockets.WebSocket.t = "%identity";
 
 describe(
   "Client",
   () => {
+    open TelepathicClient;
     describe(
       "register(client)",
       () =>
@@ -38,9 +39,9 @@ describe(
               | _ => Js.Exn.raiseError("Wrong action")
               }
             };
-            let socket = Some(asSocket({"send": handleMessage, "on": () => ()}));
-            let client = TelepathicClient.make(~socket, ~linkId=expectedLinkId, "test-url");
-            let run = () => client |> TelepathicClient.register;
+            let socket = Some(asSocket({"send": handleMessage, "addEventListener": (_) => ()}));
+            let client = make(~socket, ~linkId=expectedLinkId, ~onMessage=(_) => (), "test-url");
+            let run = () => client |> register;
             expect(run) |> not_ |> toThrow
           }
         )
@@ -76,10 +77,9 @@ describe(
               | _ => Js.Exn.raiseError("Wrong action")
               }
             };
-            let socket = Some(asSocket({"send": handleMessage, "on": () => ()}));
-            let client = TelepathicClient.make(~socket, ~linkId=expectedLinkId, "test-url");
-            let run = () =>
-              client |> TelepathicClient.sendMessage(~linkId=expectedLinkId, ~text=expectedText);
+            let socket = Some(asSocket({"send": handleMessage, "addEventListener": (_) => ()}));
+            let client = make(~socket, ~linkId=expectedLinkId, ~onMessage=(_) => (), "test-url");
+            let run = () => client |> sendMessage(~linkId=expectedLinkId, ~text=expectedText);
             expect(run) |> not_ |> toThrow
           }
         )

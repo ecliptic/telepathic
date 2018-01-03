@@ -2,10 +2,15 @@
 module Actions = {
   include TelepathicActions;
 };
+
 module Client = {
   include TelepathicClient;
 };
+
 module Utils = {
   include TelepathicUtils;
 };
 
+module Js = {
+  include TelepathicJs;
+};

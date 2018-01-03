@@ -3,13 +3,17 @@ import logo from './logo.svg'
 import './App.css'
 import Client from 'bs-telepathic-client'
 
-const CHAT_URL = 'ws://localhost:4000/chat'
-const LINK_ID = '4df364ed-4a1f-43c0-962c-81be86a43788'
+const CHAT_URL = 'ws://localhost:4000'
+const LINK_ID = 'd190f484-7bd6-4b63-9651-019a6227e034'
 
 class App extends Component {
   constructor (...args) {
     super(...args)
-    this.client = Client.start({linkId: LINK_ID, url: CHAT_URL})
+    this.client = Client.start({
+      linkId: LINK_ID,
+      url: CHAT_URL,
+      onMessage: this.handleReceiveMessage,
+    })
     this.state = {
       nickname: this.client.getOrCreateUserName(),
       chat: {
@@ -28,6 +32,10 @@ class App extends Component {
   handleUpdateMessage = event => {
     const message = event.target.value
     this.setState({message})
+  }
+
+  handleReceiveMessage = event => {
+    console.log(event)
   }
 
   handleSend = event => {

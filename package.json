@@ -29,9 +29,9 @@
     "body-parser": "^1.18.2",
     "bs-json": "^1.0.0",
     "bs-node-debug": "^0.1.1",
+    "bs-websockets": "^1.0.9",
     "dotenv": "^4.0.0",
-    "title-case": "^2.1.1",
-    "ws": "^3.3.3"
+    "title-case": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

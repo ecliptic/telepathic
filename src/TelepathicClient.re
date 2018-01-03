@@ -1,14 +1,11 @@
-module Ws = {
-  type t;
-  [@bs.new] [@bs.module] external make : string => t = "ws";
-  [@bs.send.pipe : t] external on : (string, 'a => unit) => unit = "";
-  [@bs.send.pipe : t] external send : string => unit = "";
-};
+open WebSockets;
 
 type t = {
-  ws: Ws.t,
+  ws: WebSocket.t,
   linkId: string
 };
+
+type clientMessage = {. "userName": string, "text": string};
 
 [@bs.module]
 external generate : Js.t('a) => {. "spaced": string, "dashed": string, "raw": array(string)} =
@@ -65,7 +62,17 @@ let sendMessage = (~linkId: string, ~text: string, client: t) => {
   open Js.Json;
   let userName = getOrCreateUserName();
   let message = MessageSend(linkId, userName, text);
-  client.ws |> Ws.send(message |> encode |> stringify)
+  client.ws |> WebSocket.sendString(message |> encode |> stringify)
+};
+
+let receiveMessage = (~onMessage, event) => {
+  open TelepathicActions;
+  let json = event |> WebSockets.MessageEvent.stringData |> Js.Json.parseExn;
+  switch (decode(json)) {
+  | Some(MessageReceive(userName, text)) => onMessage({"userName": userName, "text": text})
+  /* Otherwise, ignore */
+  | _ => ()
+  }
 };
 
 /**
@@ -75,21 +82,30 @@ let register = (client: t) => {
   open TelepathicActions;
   open Js.Json;
   let message = ClientRegister(client.linkId);
-  client.ws |> Ws.send(message |> encode |> stringify)
+  client.ws |> WebSocket.sendString(message |> encode |> stringify)
 };
 
 /**
  * Initialize a new Client, optionally accepting an alternate socket client for testing
  * */
-let make = (~socket=None, ~linkId: string, url: string) : t => {
+let make = (~socket=None, ~linkId: string, ~onMessage: clientMessage => unit, url: string) : t => {
   let ws =
     switch socket {
     | Some(socket) => socket
-    | None => Ws.make(url)
+    | None => WebSocket.make(url)
     };
   let client = {ws, linkId};
   /* When connected, register the linkId with the server */
-  ws |> Ws.on("open", () => register(client));
+  ws
+  |> WebSocket.on @@
+  Open(() => register(client))
+  |> WebSocket.on @@
+  Message(receiveMessage(~onMessage))
+  |> WebSocket.on @@
+  Error((error) => Js.log("WebSocket error: " ++ error))
+  |> WebSocket.on @@
+  Close((event) => Js.log("WebSocket closed: " ++ WebSockets.CloseEvent.reason(event)))
+  |> ignore;
   /* Return the client */
   client
 };
