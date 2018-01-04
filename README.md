@@ -1,4 +1,4 @@
-# bs-telepathic-client
+# bs-telepathic
 
 A telepathic connection to your users
 

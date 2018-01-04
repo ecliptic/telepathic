@@ -6,7 +6,7 @@
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ecliptic/bs-telepathic-client.git"
+    "url": "git@github.com:ecliptic/bs-telepathic.git"
   },
   "author": "Brandon Konkle <brandon@ecliptic.io> (http://ecliptic.io)",
   "license": "Apache-2.0",
