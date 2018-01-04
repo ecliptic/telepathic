@@ -1,3 +1,7 @@
+open Js.Option;
+
+open Rationale.Option.Infix;
+
 type linkId = string;
 
 type userName = string;
@@ -7,9 +11,11 @@ type t =
   | MessageReceive(userName, string)
   | ClientRegister(linkId);
 
+let get = Js.Dict.get |> Rationale.Function.flip;
+
 /**
-    * Retrieve the textual key for the action
-    */
+ * Retrieve the textual key for the action
+ */
 let key = (action: t) =>
   switch action {
   | MessageSend(_linkId, _userName, _text) => "MESSAGE_SEND"
@@ -38,90 +44,28 @@ let encode = (action: t) : Js.Json.t =>
     ])
   );
 
-/**
-   * Transform a js action to an Action type
-   */
 let decode = (json: Js.Json.t) : option(t) => {
-  open Js.Option;
-  let opt = Js.Json.decodeObject(json);
-  switch opt {
-  | Some((dict: Js.Dict.t(Js.Json.t))) =>
-    switch (Js.Dict.get(dict, "key")) {
-    | Some(key) =>
-      switch (Js.Json.decodeString(key)) {
-      | Some("MESSAGE_SEND") =>
-        switch (Js.Dict.get(dict, "payload")) {
-        | Some(payload) =>
-          let userName = Js.Dict.get(Js.Json.decodeObject(payload) |> getExn, "userName");
-          switch userName {
-          | Some(userName) =>
-            switch (Js.Json.decodeString(userName)) {
-            | Some(userName) =>
-              let text = Js.Dict.get(Js.Json.decodeObject(payload) |> getExn, "text");
-              switch text {
-              | Some(text) =>
-                switch (Js.Json.decodeString(text)) {
-                | Some(text) =>
-                  let linkId = Js.Dict.get(Js.Json.decodeObject(payload) |> getExn, "linkId");
-                  switch linkId {
-                  | Some(linkId) =>
-                    switch (Js.Json.decodeString(linkId)) {
-                    | Some(linkId) => Some(MessageSend(linkId, userName, text))
-                    | None => None
-                    }
-                  | None => None
-                  }
-                | None => None
-                }
-              | None => None
-              }
-            | None => None
-            }
-          | None => None
-          }
-        | None => None
-        }
-      | Some("MESSAGE_RECEIVE") =>
-        switch (Js.Dict.get(dict, "payload")) {
-        | Some(payload) =>
-          let userName = Js.Dict.get(Js.Json.decodeObject(payload) |> getExn, "userName");
-          switch userName {
-          | Some(userName) =>
-            switch (Js.Json.decodeString(userName)) {
-            | Some(userName) =>
-              let text = Js.Dict.get(Js.Json.decodeObject(payload) |> getExn, "text");
-              switch text {
-              | Some(text) =>
-                switch (Js.Json.decodeString(text)) {
-                | Some(text) => Some(MessageReceive(userName, text))
-                | None => None
-                }
-              | None => None
-              }
-            | None => None
-            }
-          | None => None
-          }
-        | None => None
-        }
-      | Some("CLIENT_REGISTER") =>
-        switch (Js.Dict.get(dict, "payload")) {
-        | Some(payload) =>
-          let linkId = Js.Dict.get(Js.Json.decodeObject(payload) |> getExn, "linkId");
-          switch linkId {
-          | Some(linkId) =>
-            switch (Js.Json.decodeString(linkId)) {
-            | Some(linkId) => Some(ClientRegister(linkId))
-            | None => None
-            }
-          | None => None
-          }
-        | None => None
-        }
+  open Js.Json;
+  let action = json |> decodeObject;
+  let payload = action >>= get("payload") >>= decodeObject |> getWithDefault(Js.Dict.empty());
+  action
+  >>= get("key")
+  >>= decodeString
+  >>= (
+    (key) =>
+      switch key {
+      | "MESSAGE_SEND" =>
+        Some(((linkId, userName, text) => MessageSend(linkId, userName, text)))
+        <*> (payload |> get("linkId") >>= decodeString)
+        <*> (payload |> get("userName") >>= decodeString)
+        <*> (payload |> get("text") >>= decodeString)
+      | "MESSAGE_RECEIVE" =>
+        Some(((userName, text) => MessageReceive(userName, text)))
+        <*> (payload |> get("userName") >>= decodeString)
+        <*> (payload |> get("text") >>= decodeString)
+      | "CLIENT_REGISTER" =>
+        Some(((linkId) => ClientRegister(linkId))) <*> (payload |> get("linkId") >>= decodeString)
       | _ => None
       }
-    | None => None
-    }
-  | None => Js.Exn.raiseError("Unable to parse action")
-  }
+  )
 };

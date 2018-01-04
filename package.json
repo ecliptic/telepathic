@@ -31,6 +31,7 @@
     "bs-node-debug": "^0.1.1",
     "bs-websockets": "^1.0.9",
     "dotenv": "^4.0.0",
+    "rationale": "^0.1.3",
     "title-case": "^2.1.1"
   },
   "devDependencies": {
