@@ -1,4 +1,4 @@
-open TelepathicClient;
+open Client;
 
 /** An interface for usage from plain JS */
 type t = {

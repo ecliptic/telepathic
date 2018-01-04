@@ -65,6 +65,5 @@ build
 
 # Ocaml / Reason
 .merlin
-lib/*
-!lib/js/
+lib
 .bsb.lock

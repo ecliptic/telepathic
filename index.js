@@ -1,4 +1,4 @@
 /* Expose the JS interface to the Node module */
-var TelepathicJs = require('./lib/js/src/TelepathicJs')
+var Client = require('./src/ClientJs.bs')
 
-exports.start = TelepathicJs.start
+exports.start = Client.start

@@ -1,5 +1,11 @@
 {
-  "name": "bs-telepathic-client",
+  "name": "bs-telepathic",
+  "namespace": true,
+  "package-specs": {
+    "module": "es6",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
   "sources": [
     {
       "dir": "src",

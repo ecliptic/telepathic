@@ -58,7 +58,7 @@ let getOrCreateUserName = () => {
  * Send a message to the Slack channel
  * */
 let sendMessage = (~linkId: string, ~text: string, client: t) => {
-  open TelepathicActions;
+  open Actions;
   open Js.Json;
   let userName = getOrCreateUserName();
   let message = MessageSend(linkId, userName, text);
@@ -66,7 +66,7 @@ let sendMessage = (~linkId: string, ~text: string, client: t) => {
 };
 
 let receiveMessage = (~onMessage, event) => {
-  open TelepathicActions;
+  open Actions;
   let json = event |> WebSockets.MessageEvent.stringData |> Js.Json.parseExn;
   switch (json |> Decode.action) {
   | Some(MessageReceive(userName, text)) => onMessage({"userName": userName, "text": text})
@@ -79,7 +79,7 @@ let receiveMessage = (~onMessage, event) => {
  * Register the linkId with the server so that we can receive messages from the associated channel
  */
 let register = (client: t) => {
-  open TelepathicActions;
+  open Actions;
   open Js.Json;
   let message = ClientRegister(client.linkId);
   client.ws |> WebSocket.sendString(message |> Encode.action |> stringify)
@@ -104,7 +104,7 @@ let make = (~socket=None, ~linkId: string, ~onMessage: clientMessage => unit, ur
   |> WebSocket.on @@
   Error((error) => Js.log("WebSocket error: " ++ error))
   |> WebSocket.on @@
-  Close((event) => Js.log("WebSocket closed: " ++ WebSockets.CloseEvent.reason(event)))
+  Close((event) => Js.log("WebSocket closed: " ++ CloseEvent.reason(event)))
   |> ignore;
   /* Return the client */
   client

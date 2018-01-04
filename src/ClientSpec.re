@@ -4,14 +4,14 @@ open Expect;
 
 open Js.Option;
 
-open TelepathicUtils;
+open Utils;
 
 external asSocket : Js.t('a) => WebSockets.WebSocket.t = "%identity";
 
 describe(
   "Client",
   () => {
-    open TelepathicClient;
+    open Client;
     describe(
       "register(client)",
       () =>
@@ -25,13 +25,13 @@ describe(
                 | _exn => Js.Exn.raiseError("Unable to parse message")
                 };
               let action =
-                try (json |> TelepathicActions.Decode.action |> getExn) {
+                try (json |> Actions.Decode.action |> getExn) {
                 | _exn => Js.Exn.raiseError("Unable to decode action")
                 };
               expectMatches(
                 ~message="Wrong key",
                 ~expected="CLIENT_REGISTER",
-                ~actual=TelepathicActions.key(action)
+                ~actual=Actions.key(action)
               );
               switch action {
               | ClientRegister(linkId) =>
@@ -57,13 +57,13 @@ describe(
             let expectedText = "Test message!";
             let handleMessage = (message) => {
               let action =
-                try (message |> Js.Json.parseExn |> TelepathicActions.Decode.action |> getExn) {
+                try (message |> Js.Json.parseExn |> Actions.Decode.action |> getExn) {
                 | _exn => Js.Exn.raiseError("Unable to parse message")
                 };
               expectMatches(
                 ~message="Wrong key",
                 ~expected="MESSAGE_SEND",
-                ~actual=TelepathicActions.key(action)
+                ~actual=Actions.key(action)
               );
               switch action {
               | MessageSend(linkId, userName, text) =>
