@@ -69,11 +69,8 @@
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom"
     ],
-    "testMatch": ["**/?(*)(Spec|Test).js"],
+    "testMatch": ["**/?(*)(Spec|Test).bs.js"],
     "testPathIgnorePatterns": ["/node_modules/"],
-    "transform": {
-      ".(js|jsx)": "babel-jest"
-    },
     "testEnvironment": "node"
   },
   "lint-staged": {
