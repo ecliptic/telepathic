@@ -1,8 +1,7 @@
 {
   "name": "bs-telepathic",
-  "version": "0.2.0",
-  "description":
-    "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
+  "version": "0.3.0",
+  "description": "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
   "main": "./index.js",
   "repository": {
     "type": "git",
@@ -10,7 +9,11 @@
   },
   "author": "Brandon Konkle <brandon@ecliptic.io> (http://ecliptic.io)",
   "license": "Apache-2.0",
-  "keywords": ["bucklescript", "reasonml", "slack"],
+  "keywords": [
+    "bucklescript",
+    "reasonml",
+    "slack"
+  ],
   "scripts": {
     "build": "bsb -make-world",
     "build.clean": "bsb -clean-world",
@@ -63,18 +66,30 @@
     "prettier-eslint-cli": "^4.7.0"
   },
   "jest": {
-    "setupFiles": ["jest-localstorage-mock"],
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ],
     "testURL": "http://localhost",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom"
     ],
-    "testMatch": ["**/?(*)(Spec|Test).bs.js"],
-    "testPathIgnorePatterns": ["/node_modules/"],
+    "testMatch": [
+      "**/?(*)(Spec|Test).bs.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "src/**/*.js": ["prettier-eslint --write", "git add"],
-    "src/**/*.re": ["refmt --in-place", "git add"]
+    "src/**/*.js": [
+      "prettier-eslint --write",
+      "git add"
+    ],
+    "src/**/*.re": [
+      "refmt --in-place",
+      "git add"
+    ]
   }
 }
