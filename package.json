@@ -1,7 +1,8 @@
 {
   "name": "bs-telepathic-client",
   "version": "0.1.0",
-  "description": "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
+  "description":
+    "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
   "main": "./index.js",
   "repository": {
     "type": "git",
@@ -9,11 +10,7 @@
   },
   "author": "Brandon Konkle <brandon@ecliptic.io> (http://ecliptic.io)",
   "license": "Apache-2.0",
-  "keywords": [
-    "bucklescript",
-    "reasonml",
-    "slack"
-  ],
+  "keywords": ["bucklescript", "reasonml", "slack"],
   "scripts": {
     "build": "bsb -make-world",
     "build.clean": "bsb -clean-world",
@@ -23,11 +20,12 @@
     "prepublish": "yarn build",
     "prepush": "yarn test",
     "test": "cross-env NODE_ENV=test jest",
-    "test.watch": "cross-env NODE_ENV=test node --inspect node_modules/.bin/jest --runInBand --watch"
+    "test.watch":
+      "cross-env NODE_ENV=test node --inspect node_modules/.bin/jest --runInBand --watch"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "bs-json": "^1.0.0",
+    "bs-json": "^1.0.1",
     "bs-node-debug": "^0.1.1",
     "bs-websockets": "^1.0.9",
     "dotenv": "^4.0.0",
@@ -44,7 +42,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "babili-webpack-plugin": "^0.1.2",
-    "bs-jest": "^0.3.1",
+    "bs-jest": "^0.3.2",
     "bs-platform": "2.1.0",
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.5.1",
@@ -66,33 +64,21 @@
     "prettier-eslint-cli": "^4.7.0"
   },
   "jest": {
-    "setupFiles": [
-      "jest-localstorage-mock"
-    ],
+    "setupFiles": ["jest-localstorage-mock"],
     "testURL": "http://localhost",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom"
     ],
-    "testMatch": [
-      "**/?(*)(Spec|Test).js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
+    "testMatch": ["**/?(*)(Spec|Test).js"],
+    "testPathIgnorePatterns": ["/node_modules/"],
     "transform": {
       ".(js|jsx)": "babel-jest"
     },
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "prettier-eslint --write",
-      "git add"
-    ],
-    "src/**/*.re": [
-      "refmt --in-place",
-      "git add"
-    ]
+    "src/**/*.js": ["prettier-eslint --write", "git add"],
+    "src/**/*.re": ["refmt --in-place", "git add"]
   }
 }

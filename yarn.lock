@@ -1142,15 +1142,15 @@ bs-jest@^0.2.0:
   dependencies:
     jest "^21.2.1"
 
-bs-jest@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/bs-jest/-/bs-jest-0.3.1.tgz#25feb2bdbbd7817207efdd3f4e7d36797e2e9a43"
+bs-jest@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/bs-jest/-/bs-jest-0.3.2.tgz#b13cef06a965988a404fd74cac351f3b5bce53b1"
   dependencies:
-    jest "^22.0.1"
+    jest "^22.0.4"
 
-bs-json@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/bs-json/-/bs-json-1.0.0.tgz#5ff58f8f08e34ec8a4b52abbd637b3e1f3ef6519"
+bs-json@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bs-json/-/bs-json-1.0.1.tgz#0e25ed5ba7164ab131e494669b755da9844cc37e"
 
 bs-node-debug@^0.1.1:
   version "0.1.1"
@@ -3242,7 +3242,7 @@ jest@^21.2.1:
   dependencies:
     jest-cli "^21.2.1"
 
-jest@^22.0.1, jest@^22.0.4:
+jest@^22.0.4:
   version "22.0.4"
   resolved "https://registry.yarnpkg.com/jest/-/jest-22.0.4.tgz#d3cf560ece6b825b115dce80b9826ceb40f87961"
   dependencies:

@@ -25,7 +25,7 @@ describe(
                 | _exn => Js.Exn.raiseError("Unable to parse message")
                 };
               let action =
-                try (TelepathicActions.decode(json) |> getExn) {
+                try (json |> TelepathicActions.Decode.action |> getExn) {
                 | _exn => Js.Exn.raiseError("Unable to decode action")
                 };
               expectMatches(
@@ -57,7 +57,7 @@ describe(
             let expectedText = "Test message!";
             let handleMessage = (message) => {
               let action =
-                try (Js.Json.parseExn(message) |> TelepathicActions.decode |> getExn) {
+                try (message |> Js.Json.parseExn |> TelepathicActions.Decode.action |> getExn) {
                 | _exn => Js.Exn.raiseError("Unable to parse message")
                 };
               expectMatches(

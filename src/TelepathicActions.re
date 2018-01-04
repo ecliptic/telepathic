@@ -23,49 +23,42 @@ let key = (action: t) =>
   | ClientRegister(_linkId) => "CLIENT_REGISTER"
   };
 
-let encode = (action: t) : Js.Json.t =>
-  Json.Encode.(
-    object_([
-      ("key", action |> key |> string),
-      (
-        "payload",
-        switch action {
-        | MessageSend(linkId, userName, text) =>
-          object_([
-            ("linkId", string(linkId)),
-            ("userName", string(userName)),
-            ("text", string(text))
-          ])
-        | MessageReceive(userName, text) =>
-          object_([("userName", string(userName)), ("text", string(text))])
-        | ClientRegister(linkId) => object_([("linkId", string(linkId))])
-        }
-      )
-    ])
-  );
+module Encode = {
+  open Json.Encode;
+  let payload = (action) =>
+    switch action {
+    | MessageSend(linkId, userName, text) =>
+      object_([("linkId", string(linkId)), ("userName", string(userName)), ("text", string(text))])
+    | MessageReceive(userName, text) =>
+      object_([("userName", string(userName)), ("text", string(text))])
+    | ClientRegister(linkId) => object_([("linkId", string(linkId))])
+    };
+  let action = (action: t) : Js.Json.t =>
+    object_([("key", action |> key |> string), ("payload", action |> payload)]);
+};
 
-let decode = (json: Js.Json.t) : option(t) => {
+module Decode = {
   open Js.Json;
-  let action = json |> decodeObject;
-  let payload = action >>= get("payload") >>= decodeObject |> getWithDefault(Js.Dict.empty());
-  action
-  >>= get("key")
-  >>= decodeString
-  >>= (
-    (key) =>
-      switch key {
-      | "MESSAGE_SEND" =>
-        Some(((linkId, userName, text) => MessageSend(linkId, userName, text)))
-        <*> (payload |> get("linkId") >>= decodeString)
-        <*> (payload |> get("userName") >>= decodeString)
-        <*> (payload |> get("text") >>= decodeString)
-      | "MESSAGE_RECEIVE" =>
-        Some(((userName, text) => MessageReceive(userName, text)))
-        <*> (payload |> get("userName") >>= decodeString)
-        <*> (payload |> get("text") >>= decodeString)
-      | "CLIENT_REGISTER" =>
-        Some(((linkId) => ClientRegister(linkId))) <*> (payload |> get("linkId") >>= decodeString)
-      | _ => None
-      }
-  )
+  let payload = (payload, key) =>
+    switch key {
+    | "MESSAGE_SEND" =>
+      Some(((linkId, userName, text) => MessageSend(linkId, userName, text)))
+      <*> (payload |> get("linkId") >>= decodeString)
+      <*> (payload |> get("userName") >>= decodeString)
+      <*> (payload |> get("text") >>= decodeString)
+    | "MESSAGE_RECEIVE" =>
+      Some(((userName, text) => MessageReceive(userName, text)))
+      <*> (payload |> get("userName") >>= decodeString)
+      <*> (payload |> get("text") >>= decodeString)
+    | "CLIENT_REGISTER" =>
+      Some(((linkId) => ClientRegister(linkId))) <*> (payload |> get("linkId") >>= decodeString)
+    | _ => None
+    };
+  let action = (json: Js.Json.t) => {
+    let action = json |> decodeObject;
+    action
+    >>= get("key")
+    >>= decodeString
+    >>= payload(action >>= get("payload") >>= decodeObject |> getWithDefault(Js.Dict.empty()))
+  };
 };

@@ -62,13 +62,13 @@ let sendMessage = (~linkId: string, ~text: string, client: t) => {
   open Js.Json;
   let userName = getOrCreateUserName();
   let message = MessageSend(linkId, userName, text);
-  client.ws |> WebSocket.sendString(message |> encode |> stringify)
+  client.ws |> WebSocket.sendString(message |> Encode.action |> stringify)
 };
 
 let receiveMessage = (~onMessage, event) => {
   open TelepathicActions;
   let json = event |> WebSockets.MessageEvent.stringData |> Js.Json.parseExn;
-  switch (decode(json)) {
+  switch (json |> Decode.action) {
   | Some(MessageReceive(userName, text)) => onMessage({"userName": userName, "text": text})
   /* Otherwise, ignore */
   | _ => ()
@@ -82,7 +82,7 @@ let register = (client: t) => {
   open TelepathicActions;
   open Js.Json;
   let message = ClientRegister(client.linkId);
-  client.ws |> WebSocket.sendString(message |> encode |> stringify)
+  client.ws |> WebSocket.sendString(message |> Encode.action |> stringify)
 };
 
 /**
