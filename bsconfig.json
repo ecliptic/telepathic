@@ -6,7 +6,7 @@
       "subdirs": true
     }
   ],
-  "bs-dependencies": ["bs-json", "bs-websockets", "bs-jest", "rationale"],
+  "bs-dependencies": ["bs-json", "bs-websockets", "bs-jest", "bs-abstract"],
   "reason": {
     "react-jsx": 2
   },

@@ -1,6 +1,8 @@
 open Js.Option;
 
-open Rationale.Option.Infix;
+open BsAbstract;
+
+open Option.Infix;
 
 type linkId = string;
 
@@ -11,7 +13,7 @@ type t =
   | MessageReceive(userName, string)
   | ClientRegister(linkId);
 
-let get = Js.Dict.get |> Rationale.Function.flip;
+let get = Js.Dict.get |> Function.flip;
 
 /**
  * Retrieve the textual key for the action

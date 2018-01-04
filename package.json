@@ -25,11 +25,11 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bs-abstract": "^0.6.0",
     "bs-json": "^1.0.1",
     "bs-node-debug": "^0.1.1",
     "bs-websockets": "^1.0.9",
     "dotenv": "^4.0.0",
-    "rationale": "^0.1.3",
     "title-case": "^2.1.1"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "21.2.1",
+    "jest": "22.0.4",
     "jest-localstorage-mock": "^2.1.0",
     "lint-staged": "^6.0.0",
     "prettier-eslint-cli": "^4.7.0"
