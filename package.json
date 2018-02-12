@@ -21,7 +21,6 @@
     "lint": "eslint --ext .js,.jsx ./",
     "precommit": "lint-staged",
     "prepublish": "yarn build",
-    "prepush": "yarn test",
     "test": "cross-env NODE_ENV=test jest",
     "test.watch": "yarn test --watch"
   },
