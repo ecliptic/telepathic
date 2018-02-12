@@ -12,7 +12,7 @@
       "subdirs": true
     }
   ],
-  "bs-dependencies": ["bs-json", "bs-websockets", "bs-jest", "bs-abstract"],
+  "bs-dependencies": ["bs-json", "bs-websockets", "bs-jest", "rationale"],
   "reason": {
     "react-jsx": 2
   },

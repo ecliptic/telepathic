@@ -7,11 +7,19 @@ var Js_json = require('bs-platform/lib/js/js_json.js')
 var Js_option = require('bs-platform/lib/js/js_option.js')
 var Json_encode = require('bs-json/src/Json_encode.js')
 var Js_primitive = require('bs-platform/lib/js/js_primitive.js')
-var Option$BsAbstract = require('bs-abstract/src/Option.bs.js')
-var Function$BsAbstract = require('bs-abstract/src/Function.bs.js')
+var Option$Rationale = require('rationale/src/Option.js')
+var Function$Rationale = require('rationale/src/Function.js')
+
+var match_000 = Option$Rationale.Infix[/* >>= */ 0]
+
+var match_001 = Option$Rationale.Infix[/* <*> */ 2]
+
+var $less$star$great = match_001
+
+var $great$great$eq = match_000
 
 function get (param, param$1) {
-  return Function$BsAbstract.flip(
+  return Function$Rationale.flip(
     function (prim, prim$1) {
       return Js_primitive.undefined_to_opt(prim[prim$1])
     },
@@ -72,69 +80,61 @@ function payload$1 (payload$2, key) {
   switch (key) {
     case 'CLIENT_REGISTER':
       return Curry._2(
-        Option$BsAbstract.Infix[/* <*> */ 5],
+        $less$star$great,
         /* Some */ [
           function (linkId) {
             return /* ClientRegister */ Block.__(2, [linkId])
           },
         ],
         Curry._2(
-          Option$BsAbstract.Infix[/* >>= */ 0],
+          $great$great$eq,
           get('linkId', payload$2),
           Js_json.decodeString
         )
       )
     case 'MESSAGE_RECEIVE':
       return Curry._2(
-        Option$BsAbstract.Infix[/* <*> */ 5],
+        $less$star$great,
         Curry._2(
-          Option$BsAbstract.Infix[/* <*> */ 5],
+          $less$star$great,
           /* Some */ [
             function (userName, text) {
               return /* MessageReceive */ Block.__(1, [userName, text])
             },
           ],
           Curry._2(
-            Option$BsAbstract.Infix[/* >>= */ 0],
+            $great$great$eq,
             get('userName', payload$2),
             Js_json.decodeString
           )
         ),
-        Curry._2(
-          Option$BsAbstract.Infix[/* >>= */ 0],
-          get('text', payload$2),
-          Js_json.decodeString
-        )
+        Curry._2($great$great$eq, get('text', payload$2), Js_json.decodeString)
       )
     case 'MESSAGE_SEND':
       return Curry._2(
-        Option$BsAbstract.Infix[/* <*> */ 5],
+        $less$star$great,
         Curry._2(
-          Option$BsAbstract.Infix[/* <*> */ 5],
+          $less$star$great,
           Curry._2(
-            Option$BsAbstract.Infix[/* <*> */ 5],
+            $less$star$great,
             /* Some */ [
               function (linkId, userName, text) {
                 return /* MessageSend */ Block.__(0, [linkId, userName, text])
               },
             ],
             Curry._2(
-              Option$BsAbstract.Infix[/* >>= */ 0],
+              $great$great$eq,
               get('linkId', payload$2),
               Js_json.decodeString
             )
           ),
           Curry._2(
-            Option$BsAbstract.Infix[/* >>= */ 0],
+            $great$great$eq,
             get('userName', payload$2),
             Js_json.decodeString
           )
         ),
-        Curry._2(
-          Option$BsAbstract.Infix[/* >>= */ 0],
-          get('text', payload$2),
-          Js_json.decodeString
-        )
+        Curry._2($great$great$eq, get('text', payload$2), Js_json.decodeString)
       )
     default:
       return /* None */ 0
@@ -146,18 +146,18 @@ function action$1 (json) {
   var partial_arg = Js_option.getWithDefault(
     {},
     Curry._2(
-      Option$BsAbstract.Infix[/* >>= */ 0],
-      Curry._2(Option$BsAbstract.Infix[/* >>= */ 0], action$2, function (param) {
+      $great$great$eq,
+      Curry._2($great$great$eq, action$2, function (param) {
         return get('payload', param)
       }),
       Js_json.decodeObject
     )
   )
   return Curry._2(
-    Option$BsAbstract.Infix[/* >>= */ 0],
+    $great$great$eq,
     Curry._2(
-      Option$BsAbstract.Infix[/* >>= */ 0],
-      Curry._2(Option$BsAbstract.Infix[/* >>= */ 0], action$2, function (param) {
+      $great$great$eq,
+      Curry._2($great$great$eq, action$2, function (param) {
         return get('key', param)
       }),
       Js_json.decodeString
@@ -170,6 +170,8 @@ function action$1 (json) {
 
 var Decode = /* module */ [/* payload */ payload$1, /* action */ action$1]
 
+exports.$great$great$eq = $great$great$eq
+exports.$less$star$great = $less$star$great
 exports.get = get
 exports.key = key
 exports.Encode = Encode
