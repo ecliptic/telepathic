@@ -10,12 +10,24 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "tests",
+      "subdirs": true,
+      "type": "dev"
     }
   ],
-  "bs-dependencies": ["bs-json", "bs-websockets", "bs-jest", "rationale"],
+  "bs-dependencies": [
+    "bs-json",
+    "bs-websockets",
+    "bs-jest",
+    "rationale"
+  ],
   "reason": {
     "react-jsx": 2
   },
-  "bsc-flags": ["-bs-super-errors"],
+  "bsc-flags": [
+    "-bs-super-errors"
+  ],
   "refmt": 3
 }

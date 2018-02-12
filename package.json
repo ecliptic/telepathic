@@ -62,20 +62,16 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "22.2.2",
     "jest-localstorage-mock": "^2.2.0",
-    "lint-staged": "^6.1.0",
-    "prettier-eslint-cli": "^4.7.0"
+    "lint-staged": "^6.1.0"
   },
   "jest": {
-    "setupFiles": [
-      "jest-localstorage-mock"
-    ],
     "testURL": "http://localhost",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom"
     ],
     "testMatch": [
-      "**/?(*)(Spec|Test).bs.js"
+      "<rootDir>/tests/**/?(*)(Spec|Test).bs.js"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/"
@@ -83,10 +79,6 @@
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "src/**/*.js": [
-      "prettier-eslint --write",
-      "git add"
-    ],
     "src/**/*.re": [
       "refmt --in-place",
       "git add"
