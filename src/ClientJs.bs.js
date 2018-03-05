@@ -33,8 +33,12 @@ function make(options) {
         };
 }
 
-var start = make;
+var $$default = {
+  start: make
+};
 
 exports.make = make;
-exports.start = start;
+exports.$$default = $$default;
+exports.default = $$default;
+exports.__esModule = true;
 /* Client-BsTelepathic Not a pure module */

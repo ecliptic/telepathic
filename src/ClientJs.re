@@ -42,4 +42,4 @@ let make: [@bs] (input => t) =
   );
 
 /** An alias for more semantic usage in Plain JS */
-let start = make;
+let default = {"start": make};

@@ -2,7 +2,7 @@
   "name": "bs-telepathic",
   "version": "2.0.0",
   "description": "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
-  "main": "./index.js",
+  "main": "./dist/Telepathic.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:ecliptic/bs-telepathic.git"
