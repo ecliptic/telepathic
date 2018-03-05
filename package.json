@@ -1,6 +1,6 @@
 {
   "name": "bs-telepathic",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A telepathic connection to your users, presented with a Node/JS and ReasonML interface",
   "main": "./dist/Telepathic.js",
   "repository": {
