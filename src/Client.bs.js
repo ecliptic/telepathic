@@ -79,7 +79,7 @@ function register(client) {
 }
 
 function make(url, linkId, onMessage, _) {
-  var ws = Curry._1(WebSockets.WebSocket[/* make */0], Js_option.getWithDefault("https://telepathic.ecliptic.io", url));
+  var ws = Curry._1(WebSockets.WebSocket[/* make */0], Js_option.getWithDefault("ws://telepathic.ecliptic.io", url));
   var client = /* record */[
     /* ws */ws,
     /* linkId */linkId
