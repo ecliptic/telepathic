@@ -1,5 +1,3 @@
-open Js.Promise;
-
 /**
  * Checks to see if the expected value matches the actual, raising an exception otherwise
  */
@@ -33,10 +31,10 @@ external toJsExn : Js.Promise.error => Js.Exn.t =
 /**
  * Reject a promise with an error using the given message
  */
-let rejectWith = (message) => reject(makeError(message));
+let rejectWith = (message) => Js.Promise.reject(makeError(message));
 
 let cancelTimeout = (delay: int, message: string) =>
-  make(
+  Js.Promise.make(
     (~resolve as _, ~reject) =>
       delay |> Js.Global.setTimeout(() => [@bs] reject(makeError(message))) |> ignore
   );

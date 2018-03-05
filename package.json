@@ -15,68 +15,45 @@
     "slack"
   ],
   "scripts": {
-    "build": "bsb -make-world",
-    "build.clean": "bsb -clean-world",
-    "build.watch": "yarn build -w",
-    "lint": "eslint --ext .js,.jsx ./",
+    "build.re": "bsb -make-world",
+    "build.re.clean": "bsb -clean-world",
+    "build.re.watch": "yarn build.re -w",
     "precommit": "lint-staged",
-    "prepublish": "yarn build",
-    "test": "cross-env NODE_ENV=test jest",
-    "test.watch": "yarn test --watch"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "bs-abstract": "^0.11.0",
-    "bs-json": "^1.0.1",
+    "bs-abstract": "^0.12.0",
+    "@glennsl/bs-json": "^1.1.2",
     "bs-node-debug": "^0.2.0",
     "bs-websockets": "^1.0.9",
-    "dotenv": "^5.0.0",
-    "rationale": "^0.1.3",
+    "dotenv": "^5.0.1",
     "title-case": "^2.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.2.2",
+    "babel-eslint": "^8.2.2",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "babili-webpack-plugin": "^0.1.2",
-    "bs-jest": "^0.3.2",
-    "bs-platform": "2.1.0",
+    "bs-platform": "2.2.2",
     "chokidar-cli": "^1.2.0",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.3",
-    "eslint": "^4.17.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-config-standard-react": "^5.0.0",
+    "eslint": "^4.18.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard-react": "^6.0.0",
     "eslint-plugin-babel": "^4.1.2",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-react": "^7.6.1",
+    "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "22.2.2",
-    "jest-localstorage-mock": "^2.2.0",
-    "lint-staged": "^6.1.0"
-  },
-  "jest": {
-    "testURL": "http://localhost",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom"
-    ],
-    "testMatch": [
-      "<rootDir>/tests/**/?(*)(Spec|Test).bs.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "testEnvironment": "node"
+    "lint-staged": "^7.0.0"
   },
   "lint-staged": {
     "src/**/*.re": [

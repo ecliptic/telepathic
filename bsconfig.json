@@ -10,18 +10,12 @@
     {
       "dir": "src",
       "subdirs": true
-    },
-    {
-      "dir": "tests",
-      "subdirs": true,
-      "type": "dev"
     }
   ],
   "bs-dependencies": [
-    "bs-json",
+    "@glennsl/bs-json",
     "bs-websockets",
-    "bs-jest",
-    "rationale"
+    "bs-abstract"
   ],
   "reason": {
     "react-jsx": 2

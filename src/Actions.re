@@ -1,6 +1,4 @@
-open Js.Option;
-
-let ((>>=), (<*>)) = Rationale.Option.Infix.((>>=), (<*>));
+open BsAbstract;
 
 type linkId = string;
 
@@ -11,7 +9,7 @@ type t =
   | MessageReceive(userName, string)
   | ClientRegister(linkId);
 
-let get = Js.Dict.get |> Rationale.Function.flip;
+let get = Js.Dict.get |> Function.flip;
 
 /**
  * Retrieve the textual key for the action
@@ -39,6 +37,8 @@ module Encode = {
 
 module Decode = {
   open Js.Json;
+  open Option.Infix;
+  let getWithDefault = Js.Option.getWithDefault;
   let payload = (payload, key) =>
     switch key {
     | "MESSAGE_SEND" =>

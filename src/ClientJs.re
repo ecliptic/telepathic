@@ -20,13 +20,13 @@ let make:
   (
     (options) => {
       let callback =
-        try (Js.Nullable.to_opt(options##onMessage) |> Js.Option.getExn) {
+        try (Js.Nullable.toOption(options##onMessage) |> Js.Option.getExn) {
         | _exn => Js.Exn.raiseError("An 'onMessage' callback is required.")
         };
       let client = make(~linkId=options##linkId, ~onMessage=callback, options##url);
       {
         "makeName": [@bs] (() => makeName()),
-        "getName": [@bs] (() => getName() |> Js.Nullable.from_opt),
+        "getName": [@bs] (() => getName() |> Js.Nullable.fromOption),
         "updateName": [@bs] ((name) => updateName(~name)),
         "getOrCreateUserName": [@bs] (() => getOrCreateUserName()),
         "sendMessage": [@bs] ((text) => client |> sendMessage(~linkId=client.linkId, ~text))
