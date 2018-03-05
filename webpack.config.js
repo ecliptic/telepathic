@@ -6,7 +6,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'Telepathic.js',
-    library: 'Telepathic',
     libraryTarget: 'commonjs',
   },
 }
