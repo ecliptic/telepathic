@@ -9,8 +9,6 @@ type clientMessage = {. "userName": string, "text": string};
 
 [@bs.module "shortid"] external generate : unit => string = "";
 
-[@bs.module] external titleCase : string => string = "title-case";
-
 module Config = {
   type keys = {userName: string};
   let keys: keys = {userName: "telepathic:userName"};
@@ -19,7 +17,7 @@ module Config = {
 /**
  * Choose a random name for a guest user
  */
-let chooseName = () => titleCase("Guest-" ++ generate());
+let chooseName = () => "Guest (" ++ generate() ++ ")";
 
 /**
  * Get the current userName from localStorage
