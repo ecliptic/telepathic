@@ -7,9 +7,7 @@ type t = {
 
 type clientMessage = {. "userName": string, "text": string};
 
-[@bs.module]
-external generate : Js.t('a) => {. "spaced": string, "dashed": string, "raw": array(string)} =
-  "project-name-generator";
+[@bs.module "shortid"] external generate : unit => string = "";
 
 [@bs.module] external titleCase : string => string = "title-case";
 
@@ -21,7 +19,7 @@ module Config = {
 /**
  * Choose a random name for a guest user
  */
-let chooseName = () => titleCase(generate({"alliterative": true})##spaced);
+let chooseName = () => titleCase("Guest-" ++ generate());
 
 /**
  * Get the current userName from localStorage

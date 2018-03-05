@@ -3,19 +3,17 @@
 
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
+var Shortid = require("shortid");
 var Js_option = require("bs-platform/lib/js/js_option.js");
 var WebSockets = require("bs-websockets/src/webSockets.js");
 var TitleCase = require("title-case");
 var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
 var Actions$BsTelepathic = require("./Actions.bs.js");
-var ProjectNameGenerator = require("project-name-generator");
 
 var Config = /* module */[/* keys : record */[/* userName */"telepathic:userName"]];
 
 function chooseName() {
-  return TitleCase(ProjectNameGenerator({
-                  alliterative: /* true */1
-                }).spaced);
+  return TitleCase("Guest-" + Shortid.generate());
 }
 
 function getName() {
@@ -110,4 +108,4 @@ exports.sendMessage = sendMessage;
 exports.receiveMessage = receiveMessage;
 exports.register = register;
 exports.make = make;
-/* title-case Not a pure module */
+/* shortid Not a pure module */

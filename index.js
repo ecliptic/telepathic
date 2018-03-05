@@ -1,4 +1,4 @@
 /* Expose the JS interface to the Node module */
-var Client = require('./src/ClientJs.bs')
+var Telepathic = require('./dist/Telepathic')
 
-exports.start = Client.start
+exports.start = Telepathic.start
