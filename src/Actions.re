@@ -27,7 +27,7 @@ module Encode = {
   open Json.Encode;
   let payload = (action) =>
     switch action {
-    | Ping => string("PING")
+    | Ping => Js.Json.null
     | MessageSend(linkId, userName, text) =>
       object_([("linkId", string(linkId)), ("userName", string(userName)), ("text", string(text))])
     | MessageReceive(userName, text) =>

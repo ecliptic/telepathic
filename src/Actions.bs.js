@@ -34,7 +34,7 @@ function key(action) {
 
 function payload(action) {
   if (typeof action === "number") {
-    return "PING";
+    return null;
   } else {
     switch (action.tag | 0) {
       case 0 : 
