@@ -19,7 +19,7 @@
     "build.re.clean": "bsb -clean-world",
     "build.re.watch": "yarn build.re -w",
     "precommit": "lint-staged",
-    "prepublish": "yarn build"
+    "prepublish": "yarn build.re"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
