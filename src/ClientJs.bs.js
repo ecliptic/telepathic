@@ -15,7 +15,7 @@ function make(options) {
   catch (_exn){
     callback = Js_exn.raiseError("An 'onMessage' callback is required.");
   }
-  var client = Client$BsTelepathic.make(/* None */0, options.linkId, callback, options.url);
+  var client = Client$BsTelepathic.make(Js_primitive.null_undefined_to_opt(options.url), options.linkId, callback, /* () */0);
   return {
           makeName: (function () {
               return Client$BsTelepathic.makeName(/* () */0);

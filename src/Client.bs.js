@@ -3,6 +3,7 @@
 
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
+var Js_option = require("bs-platform/lib/js/js_option.js");
 var WebSockets = require("bs-websockets/src/webSockets.js");
 var TitleCase = require("title-case");
 var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
@@ -79,9 +80,8 @@ function register(client) {
   return /* () */0;
 }
 
-function make($staropt$star, linkId, onMessage, url) {
-  var socket = $staropt$star ? $staropt$star[0] : /* None */0;
-  var ws = socket ? socket[0] : Curry._1(WebSockets.WebSocket[/* make */0], url);
+function make(url, linkId, onMessage, _) {
+  var ws = Curry._1(WebSockets.WebSocket[/* make */0], Js_option.getWithDefault("https://telepathic.ecliptic.io", url));
   var client = /* record */[
     /* ws */ws,
     /* linkId */linkId

@@ -10,20 +10,27 @@ type t = {
   "sendMessage": [@bs] (string => unit)
 };
 
+type input = {
+  .
+  "linkId": string,
+  "url": Js.Nullable.t(string),
+  "onMessage": Js.Nullable.t((clientMessage => unit))
+};
+
 /**
  * Make a client and return the plain JS interface
  */
-let make:
-  [@bs]
-  ({. "linkId": string, "url": string, "onMessage": Js.Nullable.t((clientMessage => unit))} => t) =
+let make: [@bs] (input => t) =
   [@bs]
   (
     (options) => {
+      let toOption = Js.Nullable.toOption;
       let callback =
-        try (Js.Nullable.toOption(options##onMessage) |> Js.Option.getExn) {
+        try (toOption(options##onMessage) |> Js.Option.getExn) {
         | _exn => Js.Exn.raiseError("An 'onMessage' callback is required.")
         };
-      let client = make(~linkId=options##linkId, ~onMessage=callback, options##url);
+      let client =
+        make(~url=?options##url |> toOption, ~linkId=options##linkId, ~onMessage=callback, ());
       {
         "makeName": [@bs] (() => makeName()),
         "getName": [@bs] (() => getName() |> Js.Nullable.fromOption),

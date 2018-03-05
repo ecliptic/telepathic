@@ -86,14 +86,10 @@ let register = (client: t) => {
 };
 
 /**
- * Initialize a new Client, optionally accepting an alternate socket client for testing
+ * Initialize a new Client
  * */
-let make = (~socket=None, ~linkId: string, ~onMessage: clientMessage => unit, url: string) : t => {
-  let ws =
-    switch socket {
-    | Some(socket) => socket
-    | None => WebSocket.make(url)
-    };
+let make = (~url=?, ~linkId, ~onMessage: clientMessage => unit, ()) : t => {
+  let ws = WebSocket.make(url |> Js.Option.getWithDefault("https://telepathic.ecliptic.io"));
   let client = {ws, linkId};
   /* When connected, register the linkId with the server */
   ws
