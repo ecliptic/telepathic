@@ -55,16 +55,13 @@ function receiveMessage(onMessage, $$event) {
   var match = Actions$BsTelepathic.Decode[/* action */2](json);
   if (match) {
     var match$1 = match[0];
-    switch (match$1.tag | 0) {
-      case 1 : 
-          return Curry._1(onMessage, {
-                      userName: match$1[0],
-                      text: match$1[1]
-                    });
-      case 0 : 
-      case 2 : 
-          return /* () */0;
-      
+    if (typeof match$1 === "number" || match$1.tag !== 1) {
+      return /* () */0;
+    } else {
+      return Curry._1(onMessage, {
+                  userName: match$1[0],
+                  text: match$1[1]
+                });
     }
   } else {
     return /* () */0;
@@ -84,10 +81,10 @@ function make(url, linkId, onMessage, _) {
     /* linkId */linkId
   ];
   WebSockets.WebSocket[/* on */5](/* Close */Block.__(0, [(function ($$event) {
-              console.log("WebSocket closed: " + $$event.reason);
+              console.log("WebSocket closed: ", $$event.reason);
               return /* () */0;
             })]), WebSockets.WebSocket[/* on */5](/* Error */Block.__(1, [(function (error) {
-                  console.log("WebSocket error: " + error);
+                  console.log("WebSocket error: ", error);
                   return /* () */0;
                 })]), WebSockets.WebSocket[/* on */5](/* Message */Block.__(2, [(function (param) {
                       return receiveMessage(onMessage, param);

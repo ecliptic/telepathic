@@ -94,9 +94,9 @@ let make = (~url=?, ~linkId, ~onMessage: clientMessage => unit, ()) : t => {
   |> WebSocket.on @@
   Message(receiveMessage(~onMessage))
   |> WebSocket.on @@
-  Error((error) => Js.log("WebSocket error: " ++ error))
+  Error((error) => Js.log2("WebSocket error: ", error))
   |> WebSocket.on @@
-  Close((event) => Js.log("WebSocket closed: " ++ CloseEvent.reason(event)))
+  Close((event) => Js.log2("WebSocket closed: ", CloseEvent.reason(event)))
   |> ignore;
   /* Return the client */
   client

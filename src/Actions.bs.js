@@ -17,62 +17,70 @@ function get(param, param$1) {
 }
 
 function key(action) {
-  switch (action.tag | 0) {
-    case 0 : 
-        return "MESSAGE_SEND";
-    case 1 : 
-        return "MESSAGE_RECEIVE";
-    case 2 : 
-        return "CLIENT_REGISTER";
-    
+  if (typeof action === "number") {
+    return "PING";
+  } else {
+    switch (action.tag | 0) {
+      case 0 : 
+          return "MESSAGE_SEND";
+      case 1 : 
+          return "MESSAGE_RECEIVE";
+      case 2 : 
+          return "CLIENT_REGISTER";
+      
+    }
   }
 }
 
 function payload(action) {
-  switch (action.tag | 0) {
-    case 0 : 
-        return Json_encode.object_(/* :: */[
-                    /* tuple */[
-                      "linkId",
-                      action[0]
-                    ],
-                    /* :: */[
+  if (typeof action === "number") {
+    return "PING";
+  } else {
+    switch (action.tag | 0) {
+      case 0 : 
+          return Json_encode.object_(/* :: */[
+                      /* tuple */[
+                        "linkId",
+                        action[0]
+                      ],
+                      /* :: */[
+                        /* tuple */[
+                          "userName",
+                          action[1]
+                        ],
+                        /* :: */[
+                          /* tuple */[
+                            "text",
+                            action[2]
+                          ],
+                          /* [] */0
+                        ]
+                      ]
+                    ]);
+      case 1 : 
+          return Json_encode.object_(/* :: */[
                       /* tuple */[
                         "userName",
-                        action[1]
+                        action[0]
                       ],
                       /* :: */[
                         /* tuple */[
                           "text",
-                          action[2]
+                          action[1]
                         ],
                         /* [] */0
                       ]
-                    ]
-                  ]);
-    case 1 : 
-        return Json_encode.object_(/* :: */[
-                    /* tuple */[
-                      "userName",
-                      action[0]
-                    ],
-                    /* :: */[
+                    ]);
+      case 2 : 
+          return Json_encode.object_(/* :: */[
                       /* tuple */[
-                        "text",
-                        action[1]
+                        "linkId",
+                        action[0]
                       ],
                       /* [] */0
-                    ]
-                  ]);
-    case 2 : 
-        return Json_encode.object_(/* :: */[
-                    /* tuple */[
-                      "linkId",
-                      action[0]
-                    ],
-                    /* [] */0
-                  ]);
-    
+                    ]);
+      
+    }
   }
 }
 
@@ -118,6 +126,8 @@ function payload$1(payload$2, key) {
                                           text
                                         ]);
                               })], Curry._2(Option$BsAbstract.Infix[/* >>= */0], get("linkId", payload$2), Js_json.decodeString)), Curry._2(Option$BsAbstract.Infix[/* >>= */0], get("userName", payload$2), Js_json.decodeString)), Curry._2(Option$BsAbstract.Infix[/* >>= */0], get("text", payload$2), Js_json.decodeString));
+    case "PING" : 
+        return /* Some */[/* Ping */0];
     default:
       return /* None */0;
   }

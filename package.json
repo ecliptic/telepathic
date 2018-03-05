@@ -30,8 +30,7 @@
     "bs-node-debug": "^0.2.0",
     "bs-websockets": "git://github.com/bkonkle/bs-websockets.git#9a47c2d",
     "dotenv": "^5.0.1",
-    "shortid": "^2.2.8",
-    "title-case": "^2.1.1"
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
