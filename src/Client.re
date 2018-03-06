@@ -85,7 +85,7 @@ let register = (client: t) => {
  * Initialize a new Client
  * */
 let make = (~url=?, ~linkId, ~onMessage: clientMessage => unit, ()) : t => {
-  let ws = WebSocket.make(url |> Js.Option.getWithDefault("ws://telepathic.ecliptic.io"));
+  let ws = WebSocket.make(url |> Js.Option.getWithDefault("wss://telepathic.ecliptic.io"));
   let client = {ws, linkId};
   /* When connected, register the linkId with the server */
   ws
