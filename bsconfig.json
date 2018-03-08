@@ -1,5 +1,5 @@
 {
-  "name": "bs-telepathic",
+  "name": "telepathic",
   "namespace": true,
   "package-specs": {
     "module": "commonjs",

@@ -7,7 +7,7 @@ var Shortid = require("shortid");
 var Js_option = require("bs-platform/lib/js/js_option.js");
 var WebSockets = require("bs-websockets/src/webSockets.js");
 var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
-var Actions$BsTelepathic = require("./Actions.bs.js");
+var Actions$Telepathic = require("./Actions.bs.js");
 
 var Config = /* module */[/* keys : record */[/* userName */"telepathic:userName"]];
 
@@ -46,13 +46,13 @@ function sendMessage(linkId, text, client) {
       userName,
       text
     ]);
-  client[/* ws */0].send(JSON.stringify(Actions$BsTelepathic.Encode[/* action */1](message)));
+  client[/* ws */0].send(JSON.stringify(Actions$Telepathic.Encode[/* action */1](message)));
   return /* () */0;
 }
 
 function receiveMessage(onMessage, $$event) {
   var json = JSON.parse($$event.data);
-  var match = Actions$BsTelepathic.Decode[/* action */2](json);
+  var match = Actions$Telepathic.Decode[/* action */2](json);
   if (match) {
     var match$1 = match[0];
     if (typeof match$1 === "number" || match$1.tag !== 1) {
@@ -70,7 +70,7 @@ function receiveMessage(onMessage, $$event) {
 
 function register(client) {
   var message = /* ClientRegister */Block.__(2, [client[/* linkId */1]]);
-  client[/* ws */0].send(JSON.stringify(Actions$BsTelepathic.Encode[/* action */1](message)));
+  client[/* ws */0].send(JSON.stringify(Actions$Telepathic.Encode[/* action */1](message)));
   return /* () */0;
 }
 

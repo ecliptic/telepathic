@@ -4,8 +4,8 @@
 var Js_exn = require("bs-platform/lib/js/js_exn.js");
 var Js_option = require("bs-platform/lib/js/js_option.js");
 var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
+var Client$Telepathic = require("./Client.bs.js");
 var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
-var Client$BsTelepathic = require("./Client.bs.js");
 
 function make(options) {
   var callback;
@@ -15,20 +15,20 @@ function make(options) {
   catch (_exn){
     callback = Js_exn.raiseError("An 'onMessage' callback is required.");
   }
-  var client = Client$BsTelepathic.make(Js_primitive.null_undefined_to_opt(options.url), options.linkId, callback, /* () */0);
+  var client = Client$Telepathic.make(Js_primitive.null_undefined_to_opt(options.url), options.linkId, callback, /* () */0);
   return {
           makeName: (function () {
-              return Client$BsTelepathic.makeName(/* () */0);
+              return Client$Telepathic.makeName(/* () */0);
             }),
           getName: (function () {
-              return Js_null_undefined.fromOption(Client$BsTelepathic.getName(/* () */0));
+              return Js_null_undefined.fromOption(Client$Telepathic.getName(/* () */0));
             }),
-          updateName: Client$BsTelepathic.updateName,
+          updateName: Client$Telepathic.updateName,
           getOrCreateUserName: (function () {
-              return Client$BsTelepathic.getOrCreateUserName(/* () */0);
+              return Client$Telepathic.getOrCreateUserName(/* () */0);
             }),
           sendMessage: (function (text) {
-              return Client$BsTelepathic.sendMessage(client[/* linkId */1], text, client);
+              return Client$Telepathic.sendMessage(client[/* linkId */1], text, client);
             })
         };
 }
@@ -41,4 +41,4 @@ exports.make = make;
 exports.$$default = $$default;
 exports.default = $$default;
 exports.__esModule = true;
-/* Client-BsTelepathic Not a pure module */
+/* Client-Telepathic Not a pure module */
