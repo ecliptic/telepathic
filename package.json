@@ -21,7 +21,7 @@
     "build.re.clean": "bsb -clean-world",
     "build.re.watch": "yarn build.re -w",
     "precommit": "lint-staged",
-    "prepublish": "yarn build.re"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@glennsl/bs-json": "^1.1.2",
